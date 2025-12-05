@@ -1,0 +1,36 @@
+name: Deploy GreenOps Backend to Civo
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo (for completeness)
+        uses: actions/checkout@v4
+
+      - name: Deploy to Civo VM over SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            echo "📦 Updating backend on VM..."
+
+            cd /home/ubuntu/greenops-backend
+
+            echo "➡️  Pulling latest code..."
+            git pull origin main
+
+            echo "📥 Installing dependencies..."
+            npm install --production
+
+            echo "🚀 Restarting backend with PM2..."
+            pm2 restart greenops-backend || pm2 start "node src/server.js" --name greenops-backend
+
+            echo "✅ Backend deploy complete."
