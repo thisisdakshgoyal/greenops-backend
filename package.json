@@ -1,0 +1,27 @@
+{
+  "name": "greenops-backend",
+  "version": "1.0.0",
+  "description": "GreenOps: Carbon-Optimized Cloud Deployments via No-Code Studio - Backend for CIVO Hackathon",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "greenops",
+    "civo",
+    "cloud",
+    "kubernetes",
+    "carbon-optimized",
+    "no-code"
+  ],
+  "author": "Cloudpirates Crusaders",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
